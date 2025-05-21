@@ -27,7 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Login extends Application {
-    
+    // Primer commit
     @Override
     public void start(Stage primaryStage) {
         ImageView imagenLogoITC = new ImageView("itc/View/Imagenes/BannerTecno.jpg");
