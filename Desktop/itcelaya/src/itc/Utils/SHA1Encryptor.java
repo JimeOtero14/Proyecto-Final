@@ -1,5 +1,5 @@
 package itc.Utils;
-
+//0000
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
