@@ -1,15 +1,9 @@
 package itc.View;
 
 import itc.Controller.btnCambiodeVentana;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import static javafx.scene.AccessibleRole.MENU;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -99,7 +93,7 @@ public class Login extends Application {
         primaryStage.show();
 
         btnCambiodeVentana obj = new btnCambiodeVentana();
-        obj.LoginMenu(btnLogin);
+        obj.LoginMenu(btnLogin, userTextField, pwBox);
 
     }
     public static void main(String[] args) {
