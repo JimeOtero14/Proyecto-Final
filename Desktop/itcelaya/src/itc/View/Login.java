@@ -1,5 +1,5 @@
 package itc.View;
-//0000
+//00001
 import itc.Controller.btnCambiodeVentana;
 import javafx.application.Application;
 import javafx.geometry.Insets;
