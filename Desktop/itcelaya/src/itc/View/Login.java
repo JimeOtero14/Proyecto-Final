@@ -1,5 +1,5 @@
 package itc.View;
-//00001
+
 import itc.Controller.btnCambiodeVentana;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -19,20 +19,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+//commit
 public class Login extends Application {
-    // Primer commit
     @Override
     public void start(Stage primaryStage) {
         ImageView imagenLogoITC = new ImageView("itc/View/Imagenes/BannerTecno.jpg");
         Text txtITC = new Text("Instituto Tecnologico de Celaya");
         Text txtSDBDA = new Text("Sistema de gestion de calificaciones");
-        Text txtgridTitle = new Text("Welcome");
-        Label userName = new Label("User Name:");
+        Text txtgridTitle = new Text("Bienvenido");
+        Label userName = new Label("Correo:");
         TextField userTextField = new TextField();
-        Label pw = new Label("Password:");
+        Label pw = new Label("Contraseña:");
         PasswordField pwBox = new PasswordField();
-        Button btnLogin = new Button("Log in");
+        Button btnLogin = new Button("Iniciar sesion");
         GridPane grid = new GridPane();
         
         txtITC.setFont(Font.font("Montserrat", FontWeight.BOLD, 50));
@@ -94,10 +93,9 @@ public class Login extends Application {
 
         btnCambiodeVentana obj = new btnCambiodeVentana();
         obj.LoginMenu(btnLogin, userTextField, pwBox);
-
     }
+    
     public static void main(String[] args) {
         launch(args);
     }
-    
 }

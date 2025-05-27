@@ -1,5 +1,5 @@
 package itc.Model;
-//00001
+//commit
 import itc.Model.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,8 +20,20 @@ public class UsuarioModel {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al validar usuario: " + e.getMessage());
             return false;
+        }
+    }
+
+    public String obtenerRolUsuario(String correo) {
+        if (correo == null) return "desconocido";
+        
+        if (correo.endsWith("@mail.com")) {
+            return "alumno";
+        } else if (correo.endsWith("@gmail.com")) {
+            return "maestro";
+        } else {
+            return "desconocido";
         }
     }
 }
