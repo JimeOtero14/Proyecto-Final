@@ -1,6 +1,6 @@
 package itc.View;
 
-import itc.Controller.btnCambiodeVentana;
+import itc.Controller.LoginController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-//commit
+
 public class Login extends Application {
     @Override
     public void start(Stage primaryStage) {
@@ -88,11 +88,13 @@ public class Login extends Application {
         
         primaryStage.setScene(display);
         primaryStage.setTitle("Sistema de gestion de calificaciones - LOGIN");
-        primaryStage.setResizable(false);
+        primaryStage.setMaximized(true);
+
         primaryStage.show();
 
-        btnCambiodeVentana obj = new btnCambiodeVentana();
+        LoginController obj = new LoginController();
         obj.LoginMenu(btnLogin, userTextField, pwBox);
+        
     }
     
     public static void main(String[] args) {

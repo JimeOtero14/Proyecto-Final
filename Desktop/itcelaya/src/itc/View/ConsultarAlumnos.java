@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-//commit
+
 public class ConsultarAlumnos {
     private Stage stage;
     private Maestro maestro;
@@ -106,7 +106,7 @@ public class ConsultarAlumnos {
 
         Scene scene = new Scene(panelMain, 900, 700);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMaximized(true);
         stage.show();
 
         new ConsultarAlumnosController(this, maestro);

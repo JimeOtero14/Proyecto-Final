@@ -14,7 +14,7 @@ public class EditarCalificacionesController {
     private EditarCalificaciones view;
     private EditarCalificacionesModel model;
     private Maestro maestro;
-    //commit
+
     public EditarCalificacionesController(EditarCalificaciones view, Maestro maestro) {
         this.view = view;
         this.maestro = maestro;
@@ -22,7 +22,6 @@ public class EditarCalificacionesController {
 
         cargarMaterias();
 
-        // Listeners para llenar combos en cascada
         view.comboMateria.setOnAction(e -> cargarGrupos());
         view.comboGrupo.setOnAction(e -> cargarAlumnos());
         view.comboAlumno.setOnAction(e -> cargarParciales());
@@ -83,8 +82,6 @@ public class EditarCalificacionesController {
                 int noControl = Integer.parseInt(alumno.split(" - ")[0]);
                 List<Integer> parciales = model.obtenerParcialesRegistrados(noControl, idGrupo, maestro.getCveMaestro(), materia);
 
-                // Parciales posibles: 1 a 4
-                // Mostrar todos parciales, marcando el que tiene seleccionado la vista
                 Platform.runLater(() -> {
                     view.comboParcial.getItems().clear();
                     for (int i = 1; i <= 4; i++) {

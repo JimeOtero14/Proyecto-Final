@@ -8,7 +8,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 
 import java.util.List;
-//commit
+
 public class ConsultarCalificacionesController {
 
     private ConsultarCalificaciones view;
@@ -26,10 +26,15 @@ public class ConsultarCalificacionesController {
     }
 
     private void cargarCalificaciones() {
-        List<CalificacionDetalle> lista = model.obtenerCalificacionesAlumno(alumno.getNoControl());
+        try {
+            int noControl = Integer.parseInt(alumno.getNoControl());
+            List<CalificacionDetalle> lista = model.obtenerCalificacionesAlumno(noControl);
 
-        Platform.runLater(() -> {
-            view.tablaCalificaciones.setItems(FXCollections.observableArrayList(lista));
-        });
+            Platform.runLater(() -> {
+                view.tablaCalificaciones.setItems(FXCollections.observableArrayList(lista));
+            });
+        } catch (NumberFormatException e) {
+            System.err.println("Error: noControl no es un número válido. Detalles: " + e.getMessage());
+        }
     }
 }

@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import java.util.List;
 
 public class ConsultarAlumnosController {
-    //commit
     private ConsultarAlumnos view;
     private ConsultarAlumnosModel model;
     private Maestro maestro;

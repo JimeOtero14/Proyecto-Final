@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class EditarCalificaciones {
     private Stage stage;
     private Maestro maestro;
-    //commit
+
     public ComboBox<String> comboMateria;
     public ComboBox<String> comboGrupo;
     public ComboBox<String> comboAlumno;
@@ -34,7 +34,6 @@ public class EditarCalificaciones {
     public void mostrar() {
         stage.setTitle("Editar Calificaciones");
 
-        // Encabezado
         ImageView imagenLogoITC = new ImageView(
     new Image(getClass().getResourceAsStream("/itc/View/Imagenes/BannerTecno.jpg"))
 );
@@ -55,7 +54,6 @@ public class EditarCalificaciones {
         HBox hbBienvenida = new HBox(txtBienvenida);
         hbBienvenida.setAlignment(Pos.CENTER);
 
-        // Etiquetas y controles
         Label lblMateria = new Label("Materia:");
         Label lblGrupo = new Label("Grupo:");
         Label lblAlumno = new Label("Alumno:");
@@ -69,7 +67,6 @@ public class EditarCalificaciones {
         txtCalificacion = new TextField();
         btnGuardar = new Button("Guardar cambios");
 
-        // Estilo etiquetas y botones
         Font labelFont = Font.font("Arial", FontWeight.BOLD, 14);
         lblMateria.setFont(labelFont);
         lblGrupo.setFont(labelFont);
@@ -82,7 +79,6 @@ public class EditarCalificaciones {
         btnGuardar.setPrefWidth(220);
         btnGuardar.setPrefHeight(40);
 
-        // Layout con GridPane
         GridPane grid = new GridPane();
         grid.setVgap(15);
         grid.setHgap(10);
@@ -108,7 +104,7 @@ public class EditarCalificaciones {
 
         Scene scene = new Scene(panelMain, 900, 700);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMaximized(true);
         stage.show();
 
         new EditarCalificacionesController(this, maestro);

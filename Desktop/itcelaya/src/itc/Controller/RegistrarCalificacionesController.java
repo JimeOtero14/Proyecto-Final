@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 import java.util.List;
-//commit
+
 public class RegistrarCalificacionesController {
 
     private RegistrarCalificaciones view;
@@ -23,7 +23,6 @@ public class RegistrarCalificacionesController {
 
         cargarMaterias();
 
-        // Listeners para llenar combos en cascada
         view.comboMateria.setOnAction(e -> {
             cargarGrupos();
             limpiarParciales();
@@ -36,7 +35,6 @@ public class RegistrarCalificacionesController {
 
         view.comboAlumno.setOnAction(e -> cargarParcialesDisponibles());
 
-        // Registrar calificación al hacer clic
         view.btnRegistrar.setOnAction(e -> registrarCalificacion());
     }
 
@@ -91,10 +89,8 @@ public class RegistrarCalificacionesController {
                 int idGrupo = Integer.parseInt(grupoStr);
                 int noControl = Integer.parseInt(alumno.split(" - ")[0]);
 
-                // Parciales ya registrados
                 List<Integer> parcialesRegistrados = model.obtenerParcialesRegistrados(noControl, idGrupo, maestro.getCveMaestro(), materia);
 
-                // Todos los parciales posibles: 1 a 4
                 List<Integer> parcialesDisponibles = new ArrayList<>();
                 for (int i = 1; i <= 4; i++) {
                     if (!parcialesRegistrados.contains(i)) {
@@ -146,7 +142,7 @@ public class RegistrarCalificacionesController {
 
             if (exito) {
                 mostrarAlerta("Éxito", "Calificación registrada correctamente");
-                cargarParcialesDisponibles(); // actualizar parciales disponibles
+                cargarParcialesDisponibles();
                 view.txtCalificacion.clear();
             } else {
                 mostrarAlerta("Error", "No se pudo registrar la calificación");

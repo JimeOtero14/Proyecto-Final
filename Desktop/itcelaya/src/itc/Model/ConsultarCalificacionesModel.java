@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultarCalificacionesModel {
-    //commit
     public static class CalificacionDetalle {
         private String nombreMateria;
         private String nombreProfesor;

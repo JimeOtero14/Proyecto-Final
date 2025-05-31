@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrarCalificacionesModel {
-    //commit
-    // Obtiene la lista de materias que maneja el maestro
+
     public List<String> obtenerMateriasPorMaestro(String cveMaestro) {
         List<String> materias = new ArrayList<>();
         String sql = "SELECT DISTINCT m.nombre FROM materia m " +
@@ -30,7 +29,6 @@ public class RegistrarCalificacionesModel {
         return materias;
     }
 
-    // Obtener grupos disponibles para la materia y maestro
     public List<String> obtenerGruposPorMateriaYMaestro(String nombreMateria, String cveMaestro) {
         List<String> grupos = new ArrayList<>();
         String sql = "SELECT g.id_grupo FROM grupo g " +
@@ -52,8 +50,7 @@ public class RegistrarCalificacionesModel {
         }
         return grupos;
     }
-    
-    // Obtiene los parciales ya registrados para ese alumno, grupo, maestro y materia
+
 public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
     List<Integer> parciales = new ArrayList<>();
     String sql = "SELECT id_parcial FROM inscrito i " +
@@ -79,8 +76,6 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
     return parciales;
 }
 
-
-    // Obtener alumnos inscritos en grupo específico
     public List<String> obtenerAlumnosPorGrupo(int idGrupo) {
         List<String> alumnos = new ArrayList<>();
         String sql = "SELECT a.noControl, a.nombre, a.primer_apellido FROM alumno a " +
@@ -94,7 +89,6 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
             ps.setInt(1, idGrupo);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // Concatenar para mostrar
                     alumnos.add(rs.getInt("noControl") + " - " + rs.getString("nombre") + " " + rs.getString("primer_apellido"));
                 }
             }
@@ -104,10 +98,8 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
         return alumnos;
     }
 
-    // Registrar calificación en la tabla inscrito
     public boolean registrarCalificacion(int noControl, int idGrupo, String cveMaestro,
                                         String nombreMateria, int parcial, int calificacion) {
-        // Primero obtener id_materia
         String sqlMateria = "SELECT id_materia FROM materia WHERE nombre = ?";
         int idMateria = -1;
         try (Connection conn = DatabaseConnection.getConnection();
@@ -126,7 +118,6 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
             return false;
         }
 
-        // Insertar o actualizar la calificación
         String sql = "INSERT INTO inscrito (noControl, id_grupo, cveMaestro, id_materia, id_parcial, calificacion) " +
                 "VALUES (?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE calificacion = VALUES(calificacion)";

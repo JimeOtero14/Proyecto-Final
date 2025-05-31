@@ -3,7 +3,7 @@ package itc.Model;
 public class Calificacion {
     private int parcial;
     private int calificacion;
-    //commity
+    
     public Calificacion(int parcial, int calificacion) {
         this.parcial = parcial;
         this.calificacion = calificacion;

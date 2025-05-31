@@ -1,6 +1,5 @@
 package itc.View;
 
-import itc.View.RegistrarCalificaciones;
 import itc.Model.Maestro;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,84 +15,90 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MenuMaestro {
-    public void mostrarMenuMaestro(Maestro maestro) {
-        Stage stage = new Stage();
+import java.io.ByteArrayInputStream;
 
-        //Commit
-        ImageView imagenLogoITC = new ImageView("itc/View/Imagenes/BannerTecno.jpg"); // sin setFitWidth
+public class MenuMaestro {
+
+    private Maestro maestro;
+    private Stage stage;
+
+    public MenuMaestro() {}
+
+    public void mostrarMenuMaestro(Maestro maestro) {
+        this.maestro = maestro;
+        this.stage = new Stage();
+
+        ImageView imagenLogoITC = new ImageView(new Image(getClass().getResourceAsStream("/itc/View/Imagenes/BannerTecno.jpg")));
+        imagenLogoITC.setPreserveRatio(true);
+        imagenLogoITC.setFitWidth(1000);
+
         Text txtITC = new Text("Instituto Tecnológico de Celaya");
-        Text txtSDBDA = new Text("Bienvenid@ maestr@ "+maestro.getNombre());
+        Text txtBienvenida = new Text("Bienvenid@ maestro(a) " + maestro.getNombre() + " " + maestro.getPrimerApellido() + " " + maestro.getSegundoApellido());
 
         txtITC.setFont(Font.font("Montserrat", FontWeight.BOLD, 30));
         txtITC.setFill(Color.WHITE);
-        txtSDBDA.setFont(Font.font("Montserrat", FontWeight.BOLD, 16));
-        txtSDBDA.setFill(Color.WHITE);
 
-        HBox HBimagenLogo = new HBox(imagenLogoITC);
-        HBimagenLogo.setAlignment(Pos.CENTER);
+        txtBienvenida.setFont(Font.font("Montserrat", FontWeight.BOLD, 16));
+        txtBienvenida.setFill(Color.WHITE);
 
-        HBox HBITC = new HBox(txtITC);
-        HBITC.setAlignment(Pos.CENTER);
+        Button btnCerrarSesion = new Button("Cerrar sesión");
+        btnCerrarSesion.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        btnCerrarSesion.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+        btnCerrarSesion.setOnAction(e -> stage.close());
 
-        HBox HBLSDBDA = new HBox(txtSDBDA);
-        HBLSDBDA.setAlignment(Pos.CENTER);
+        HBox hbCerrarSesion = new HBox(btnCerrarSesion);
+        hbCerrarSesion.setAlignment(Pos.TOP_RIGHT);
 
-        // Credencial
-        VBox credencial = crearCredencialMaestro(maestro);
+        HBox hbLogo = new HBox(imagenLogoITC);
+        hbLogo.setAlignment(Pos.CENTER);
 
-        // Botones
+        HBox hbITC = new HBox(txtITC);
+        hbITC.setAlignment(Pos.CENTER);
+
+        HBox hbBienvenida = new HBox(txtBienvenida);
+        hbBienvenida.setAlignment(Pos.CENTER);
+
+        VBox credencial = crearCredencialMaestro();
+
         Button btnRegistrar = new Button("Registrar calificaciones");
         Button btnEditar = new Button("Editar calificaciones");
-        Button btnConsultar = new Button("Consultar lista de alumnos");
-        
-        btnRegistrar.setOnAction(e -> {
-    RegistrarCalificaciones vistaRegistrar = new RegistrarCalificaciones(maestro);
-    vistaRegistrar.mostrar();
-});
-        
-        btnEditar.setOnAction(e -> {
-    itc.View.EditarCalificaciones editarView = new itc.View.EditarCalificaciones(maestro);
-    editarView.mostrar();
-});
+        Button btnConsultar = new Button("Consultar alumnos");
 
-        btnConsultar.setOnAction(e -> {
-    ConsultarAlumnos view = new ConsultarAlumnos(maestro);
-    view.mostrar();
-});
+        btnRegistrar.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        btnEditar.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        btnConsultar.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
+        btnRegistrar.setPrefWidth(220);
+        btnEditar.setPrefWidth(220);
+        btnConsultar.setPrefWidth(220);
 
+        btnRegistrar.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 10;");
+        btnEditar.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 10;");
+        btnConsultar.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 10;");
 
-        // Estilo de los botones
-        Font fuenteBoton = Font.font("Arial", FontWeight.BOLD, 14);
-        Button[] botones = {btnRegistrar, btnEditar, btnConsultar};
+        btnRegistrar.setOnAction(e -> new RegistrarCalificaciones(maestro).mostrar());
+        btnEditar.setOnAction(e -> new EditarCalificaciones(maestro).mostrar());
+        btnConsultar.setOnAction(e -> new ConsultarAlumnos(maestro).mostrar());
 
-        for (Button b : botones) {
-            b.setFont(fuenteBoton);
-            b.setPrefWidth(200);
-            b.setPrefHeight(40);
-            b.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 10;");
-        }
+        VBox botones = new VBox(15, btnRegistrar, btnEditar, btnConsultar);
+        botones.setAlignment(Pos.CENTER);
+        botones.setPadding(new Insets(20));
 
-        HBox hboxBotones = new HBox(20, btnRegistrar, btnEditar, btnConsultar);
-        hboxBotones.setAlignment(Pos.CENTER);
-        hboxBotones.setPadding(new Insets(20, 0, 0, 0));
-
-        // Panel principal
-        VBox panelMain = new VBox(20, HBimagenLogo, HBITC, HBLSDBDA, credencial, hboxBotones);
+        VBox panelMain = new VBox(10, hbCerrarSesion, hbLogo, hbITC, hbBienvenida, credencial, botones);
         panelMain.setAlignment(Pos.TOP_CENTER);
         panelMain.setPadding(new Insets(20));
+        panelMain.setStyle("-fx-background-color: DARKGREEN;");
 
         StackPane root = new StackPane(panelMain);
-        root.setStyle("-fx-background-color: DARKGREEN;");
         Scene scene = new Scene(root, 900, 700);
 
         stage.setScene(scene);
-        stage.setTitle("Menú Maestro - " + maestro.getNombreCompleto());
+        stage.setTitle("Menú Maestro");
+        stage.setMaximized(true);
         stage.show();
     }
 
-    private VBox crearCredencialMaestro(Maestro maestro) {
+    private VBox crearCredencialMaestro() {
         String estiloCredencial = "-fx-background-color: white; " +
                 "-fx-background-radius: 15; " +
                 "-fx-border-color: #2c3e50; " +
@@ -106,7 +111,7 @@ public class MenuMaestro {
         lblTitulo.setTextFill(Color.DARKBLUE);
 
         Label lblNombre = new Label("Nombre: " + maestro.getNombreCompleto());
-        Label lblClave = new Label("Clave: " + maestro.getCveMaestro());
+        Label lblClave = new Label("Clave de Maestro: " + maestro.getCveMaestro());
         Label lblCarrera = new Label("Carrera: " + maestro.getCarrera());
 
         Font fontDatos = Font.font("Arial", FontWeight.NORMAL, 16);
@@ -114,10 +119,23 @@ public class MenuMaestro {
         lblClave.setFont(fontDatos);
         lblCarrera.setFont(fontDatos);
 
-        HBox panelFotoDatos = new HBox(20, new VBox(10, lblNombre, lblClave, lblCarrera));
-        panelFotoDatos.setAlignment(Pos.CENTER_LEFT);
+        ImageView imgMaestro = new ImageView();
+        if (maestro.getFoto() != null) {
+            try {
+                ByteArrayInputStream bis = new ByteArrayInputStream(maestro.getFoto());
+                Image image = new Image(bis);
+                imgMaestro.setImage(image);
+                imgMaestro.setFitWidth(120);
+                imgMaestro.setPreserveRatio(true);
+            } catch (Exception e) {
+                System.out.println("Error cargando la foto del maestro: " + e.getMessage());
+            }
+        } else {
+            imgMaestro.setImage(new Image(getClass().getResourceAsStream("/itc/View/Imagenes/sin_foto.png")));
+        }
 
-        VBox credencial = new VBox(20, lblTitulo, panelFotoDatos);
+        VBox datos = new VBox(10, lblNombre, lblClave, lblCarrera);
+        VBox credencial = new VBox(20, imgMaestro, lblTitulo, datos);
         credencial.setStyle(estiloCredencial);
         credencial.setPadding(new Insets(20));
         credencial.setAlignment(Pos.CENTER);

@@ -1,7 +1,7 @@
 package itc.Utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-//commit
+
 public class SHA1Encryptor {
     public static String encrypt(String input) {
         try {

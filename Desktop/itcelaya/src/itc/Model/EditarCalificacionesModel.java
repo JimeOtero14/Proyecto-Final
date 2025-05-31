@@ -8,7 +8,6 @@ import java.util.List;
 
 public class EditarCalificacionesModel {
 
-    //Commit
     public List<String> obtenerMateriasPorMaestro(String cveMaestro) {
         List<String> materias = new ArrayList<>();
         String sql = "SELECT DISTINCT m.nombre FROM materia m " +
@@ -30,7 +29,6 @@ public class EditarCalificacionesModel {
         return materias;
     }
 
-    // Obtener grupos disponibles para la materia y maestro
     public List<String> obtenerGruposPorMateriaYMaestro(String nombreMateria, String cveMaestro) {
         List<String> grupos = new ArrayList<>();
         String sql = "SELECT g.id_grupo FROM grupo g " +
@@ -53,7 +51,6 @@ public class EditarCalificacionesModel {
         return grupos;
     }
 
-    // Obtener alumnos inscritos en grupo específico
     public List<String> obtenerAlumnosPorGrupo(int idGrupo) {
         List<String> alumnos = new ArrayList<>();
         String sql = "SELECT a.noControl, a.nombre, a.primer_apellido FROM alumno a " +
@@ -76,7 +73,6 @@ public class EditarCalificacionesModel {
         return alumnos;
     }
 
-    // Obtiene los parciales que ya tienen calificación para este alumno/materia/grupo
     public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
         List<Integer> parciales = new ArrayList<>();
         String sql = "SELECT id_parcial FROM inscrito i " +
@@ -102,7 +98,6 @@ public class EditarCalificacionesModel {
         return parciales;
     }
 
-    // Obtiene la calificación para el parcial seleccionado
     public Integer obtenerCalificacion(int noControl, int idGrupo, String cveMaestro, String nombreMateria, int parcial) {
         String sql = "SELECT calificacion FROM inscrito i " +
                 "JOIN materia m ON i.id_materia = m.id_materia " +
@@ -128,7 +123,6 @@ public class EditarCalificacionesModel {
         return null;
     }
 
-    // Registra o actualiza la calificación en la tabla inscrito
     public boolean registrarCalificacion(int noControl, int idGrupo, String cveMaestro,
                                         String nombreMateria, int parcial, int calificacion) {
         String sqlMateria = "SELECT id_materia FROM materia WHERE nombre = ?";

@@ -21,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ConsultarCalificaciones {
-    //commit
     private Stage stage;
     private Alumno alumno;
 
@@ -85,8 +84,9 @@ public class ConsultarCalificaciones {
         panelMain.setStyle("-fx-background-color: DARKGREEN;");
 
         Scene scene = new Scene(panelMain, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("/itc/View/Estilos/estiloTablaCalificaciones.css").toExternalForm());
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMaximized(true);
         stage.show();
 
         new ConsultarCalificacionesController(this, alumno);

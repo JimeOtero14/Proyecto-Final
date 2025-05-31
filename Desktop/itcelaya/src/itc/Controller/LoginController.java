@@ -13,9 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-//commit
-public class btnCambiodeVentana {
+
+public class LoginController {
+
     public void LoginMenu(Button btnLogin, TextField userTextField, PasswordField pwBox) {
+        
+        
         btnLogin.setOnAction(event -> {
             if (userTextField.getText().isEmpty() || pwBox.getText().isEmpty()) {
                 mostrarAlertaError("Error", "Por favor ingrese usuario y contraseña");
@@ -30,38 +33,55 @@ public class btnCambiodeVentana {
                 boolean loginExitoso = usuarioModel.validarUsuario(username, password);
 
                 if (loginExitoso) {
-                    String rol = usuarioModel.obtenerRolUsuario(username);
-                    Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+                    String tipoUsuario = usuarioModel.obtenerTipoUsuario(username, password);
+                    
+                    System.out.println("Correo: " + username);
+                    System.out.println("Contraseña en SHA1: " + password);
+                    System.out.println("Tipo de usuario obtenido: " + tipoUsuario);
 
-                    if (rol.equals("alumno")) {
+                    if (tipoUsuario == null) {
+                        mostrarAlertaError("Error", "No se pudo obtener el tipo de usuario.");
+                        return;
+                    }
+
+                    Stage currentStage = null;
+                    if (btnLogin.getScene() != null && btnLogin.getScene().getWindow() != null) {
+                        currentStage = (Stage) btnLogin.getScene().getWindow();
+                    }
+
+                    if ("Alumno".equalsIgnoreCase(tipoUsuario)) {
                         AlumnoModel alumnoModel = new AlumnoModel();
                         Alumno alumno = alumnoModel.obtenerDatosAlumno(username);
                         if (alumno != null) {
                             MenuAlumno menuAlumno = new MenuAlumno(alumno);
                             menuAlumno.mostrarMenuAlumno();
-                            currentStage.close();
+                            if (currentStage != null) currentStage.close();
                         } else {
                             mostrarAlertaError("Error", "No se encontraron datos para el alumno");
                         }
-                    } else if (rol.equals("maestro")) {
+
+                    } else if ("Maestro".equalsIgnoreCase(tipoUsuario)) {
                         MaestroModel maestroModel = new MaestroModel();
                         Maestro maestro = maestroModel.obtenerDatosMaestro(username);
                         if (maestro != null) {
                             MenuMaestro menuMaestro = new MenuMaestro();
                             menuMaestro.mostrarMenuMaestro(maestro);
-                            currentStage.close();
+                            if (currentStage != null) currentStage.close();
                         } else {
                             mostrarAlertaError("Error", "No se encontraron datos para el maestro");
                         }
+
                     } else {
-                        mostrarAlertaError("Error", "Rol de usuario no reconocido");
+                        mostrarAlertaError("Error", "Rol de usuario no reconocido: " + tipoUsuario);
                     }
+
                 } else {
                     mostrarAlertaError("Error de Login", "Usuario o contraseña incorrectos");
                 }
+
             } catch (Exception e) {
-                mostrarAlertaError("Error", "Ocurrió un error al iniciar sesión: " + e.getMessage());
                 e.printStackTrace();
+                mostrarAlertaError("Error", "Ocurrió un error al iniciar sesión.\nConsulta la consola para más detalles.");
             }
         });
     }

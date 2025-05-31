@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultarAlumnosModel {
-    //commit
+
     public List<String> obtenerMateriasPorMaestro(String cveMaestro) {
         List<String> materias = new ArrayList<>();
         String sql = "SELECT DISTINCT m.nombre FROM materia m " +
@@ -73,7 +73,6 @@ public class ConsultarAlumnosModel {
         return alumnos;
     }
 
-    // NUEVO: Obtener calificaciones por alumno, grupo, maestro y materia
     public List<Calificacion> obtenerCalificaciones(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
         List<Calificacion> calificaciones = new ArrayList<>();
 
