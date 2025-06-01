@@ -54,7 +54,7 @@ public class ConsultarCalificacionesModel {
                      "JOIN maestro ma ON i.cveMaestro = ma.cveMaestro " +
                      "WHERE i.noControl = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);

@@ -78,7 +78,10 @@ public class ConsultarCalificaciones {
         btnCerrar.setPrefWidth(100);
         btnCerrar.setPrefHeight(35);
 
-        VBox panelMain = new VBox(20, hbLogo, hbITC, hbBienvenida, tablaCalificaciones, btnCerrar);
+        HBox botones = new HBox(20, btnCerrar);
+        botones.setAlignment(Pos.CENTER);
+
+        VBox panelMain = new VBox(20, hbLogo, hbITC, hbBienvenida, tablaCalificaciones, botones);
         panelMain.setAlignment(Pos.TOP_CENTER);
         panelMain.setPadding(new Insets(20));
         panelMain.setStyle("-fx-background-color: DARKGREEN;");

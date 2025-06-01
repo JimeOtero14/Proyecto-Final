@@ -14,7 +14,7 @@ public class ConsultarAlumnosModel {
                 "JOIN grupo g ON m.id_materia = g.id_materia " +
                 "WHERE g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cveMaestro);
@@ -35,7 +35,7 @@ public class ConsultarAlumnosModel {
                 "JOIN materia m ON g.id_materia = m.id_materia " +
                 "WHERE m.nombre = ? AND g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, nombreMateria);
@@ -58,7 +58,7 @@ public class ConsultarAlumnosModel {
                 "WHERE i.id_grupo = ? " +
                 "GROUP BY a.noControl, a.nombre, a.primer_apellido";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idGrupo);
@@ -80,7 +80,7 @@ public class ConsultarAlumnosModel {
                      "JOIN materia m ON i.id_materia = m.id_materia " +
                      "WHERE i.noControl = ? AND i.id_grupo = ? AND i.cveMaestro = ? AND m.nombre = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);

@@ -15,7 +15,7 @@ public class AlumnoModel {
                      "JOIN carrera c ON a.id_carrera = c.id_carrera " +
                      "WHERE u.correo = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, correo);

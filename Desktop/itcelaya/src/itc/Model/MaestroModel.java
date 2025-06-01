@@ -15,7 +15,7 @@ public class MaestroModel {
                      "JOIN usuario u ON m.id_usuario = u.id_usuario " +
                      "WHERE u.correo = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, correo);

@@ -9,7 +9,7 @@ public class UsuarioModel {
 
     public boolean validarUsuario(String correo, String contrasena) {
         String query = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, correo.trim());
@@ -28,7 +28,7 @@ public class UsuarioModel {
     public String obtenerTipoUsuario(String correo, String contrasena) {
         String tipoUsuario = null;
         String query = "SELECT tipoUsuario FROM usuario WHERE correo = ? AND contrasena = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, correo.trim());

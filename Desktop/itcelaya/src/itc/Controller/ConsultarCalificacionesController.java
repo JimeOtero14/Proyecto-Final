@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConsultarCalificacionesController {
 

@@ -1,7 +1,5 @@
 package itc.Model;
 
-import itc.Model.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,7 @@ public class RegistrarCalificacionesModel {
                 "JOIN grupo g ON m.id_materia = g.id_materia " +
                 "WHERE g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cveMaestro);
@@ -35,7 +33,7 @@ public class RegistrarCalificacionesModel {
                 "JOIN materia m ON g.id_materia = m.id_materia " +
                 "WHERE m.nombre = ? AND g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, nombreMateria);
@@ -51,30 +49,30 @@ public class RegistrarCalificacionesModel {
         return grupos;
     }
 
-public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
-    List<Integer> parciales = new ArrayList<>();
-    String sql = "SELECT id_parcial FROM inscrito i " +
-                 "JOIN materia m ON i.id_materia = m.id_materia " +
-                 "WHERE i.noControl = ? AND i.id_grupo = ? AND i.cveMaestro = ? AND m.nombre = ?";
+    public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
+        List<Integer> parciales = new ArrayList<>();
+        String sql = "SELECT id_parcial FROM inscrito i " +
+                     "JOIN materia m ON i.id_materia = m.id_materia " +
+                     "WHERE i.noControl = ? AND i.id_grupo = ? AND i.cveMaestro = ? AND m.nombre = ?";
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, noControl);
-        ps.setInt(2, idGrupo);
-        ps.setString(3, cveMaestro);
-        ps.setString(4, nombreMateria);
+            ps.setInt(1, noControl);
+            ps.setInt(2, idGrupo);
+            ps.setString(3, cveMaestro);
+            ps.setString(4, nombreMateria);
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                parciales.add(rs.getInt("id_parcial"));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    parciales.add(rs.getInt("id_parcial"));
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return parciales;
     }
-    return parciales;
-}
 
     public List<String> obtenerAlumnosPorGrupo(int idGrupo) {
         List<String> alumnos = new ArrayList<>();
@@ -83,7 +81,7 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
                 "WHERE i.id_grupo = ? " +
                 "GROUP BY a.noControl, a.nombre, a.primer_apellido";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idGrupo);
@@ -102,7 +100,7 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
                                         String nombreMateria, int parcial, int calificacion) {
         String sqlMateria = "SELECT id_materia FROM materia WHERE nombre = ?";
         int idMateria = -1;
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement psMat = conn.prepareStatement(sqlMateria)) {
 
             psMat.setString(1, nombreMateria);
@@ -122,7 +120,7 @@ public List<Integer> obtenerParcialesRegistrados(int noControl, int idGrupo, Str
                 "VALUES (?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE calificacion = VALUES(calificacion)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);

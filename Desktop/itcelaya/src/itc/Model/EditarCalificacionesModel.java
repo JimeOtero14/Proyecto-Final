@@ -14,7 +14,7 @@ public class EditarCalificacionesModel {
                 "JOIN grupo g ON m.id_materia = g.id_materia " +
                 "WHERE g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cveMaestro);
@@ -35,7 +35,8 @@ public class EditarCalificacionesModel {
                 "JOIN materia m ON g.id_materia = m.id_materia " +
                 "WHERE m.nombre = ? AND g.cveMaestro = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, nombreMateria);
@@ -58,7 +59,8 @@ public class EditarCalificacionesModel {
                 "WHERE i.id_grupo = ? " +
                 "GROUP BY a.noControl, a.nombre, a.primer_apellido";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idGrupo);
@@ -79,7 +81,7 @@ public class EditarCalificacionesModel {
                 "JOIN materia m ON i.id_materia = m.id_materia " +
                 "WHERE i.noControl = ? AND i.id_grupo = ? AND i.cveMaestro = ? AND m.nombre = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);
@@ -103,7 +105,7 @@ public class EditarCalificacionesModel {
                 "JOIN materia m ON i.id_materia = m.id_materia " +
                 "WHERE i.noControl = ? AND i.id_grupo = ? AND i.cveMaestro = ? AND m.nombre = ? AND i.id_parcial = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);
@@ -128,7 +130,7 @@ public class EditarCalificacionesModel {
         String sqlMateria = "SELECT id_materia FROM materia WHERE nombre = ?";
         int idMateria = -1;
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement psMat = conn.prepareStatement(sqlMateria)) {
 
             psMat.setString(1, nombreMateria);
@@ -148,7 +150,7 @@ public class EditarCalificacionesModel {
                 "VALUES (?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE calificacion = VALUES(calificacion)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, noControl);

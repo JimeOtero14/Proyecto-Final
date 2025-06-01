@@ -23,6 +23,7 @@ public class ConsultarAlumnos {
 
     public ComboBox<String> comboMateria;
     public ComboBox<String> comboGrupo;
+    public ComboBox<String> comboOrdenamiento;
     public ListView<String> listaAlumnos;
     public TableView<Calificacion> tablaCalificaciones;
     public Button btnCerrar;
@@ -57,9 +58,14 @@ public class ConsultarAlumnos {
         Label lblGrupo = new Label("Grupo:");
         Label lblAlumnos = new Label("Lista de Alumnos:");
         Label lblCalificaciones = new Label("Calificaciones:");
+        Label lblOrdenamiento = new Label("Ordenar por:");
 
         comboMateria = new ComboBox<>();
         comboGrupo = new ComboBox<>();
+        comboOrdenamiento = new ComboBox<>();
+        comboOrdenamiento.getItems().addAll("Por nombre", "Por número de control");
+        comboOrdenamiento.getSelectionModel().selectFirst(); // opción por defecto
+
         listaAlumnos = new ListView<>();
 
         tablaCalificaciones = new TableView<>();
@@ -88,11 +94,13 @@ public class ConsultarAlumnos {
         grid.add(comboMateria, 1, 0);
         grid.add(lblGrupo, 0, 1);
         grid.add(comboGrupo, 1, 1);
-        grid.add(lblAlumnos, 0, 2);
-        grid.add(listaAlumnos, 1, 2);
-        grid.add(lblCalificaciones, 0, 3);
-        grid.add(tablaCalificaciones, 1, 3);
-        grid.add(btnCerrar, 1, 4);
+        grid.add(lblOrdenamiento, 0, 2);
+        grid.add(comboOrdenamiento, 1, 2);
+        grid.add(lblAlumnos, 0, 3);
+        grid.add(listaAlumnos, 1, 3);
+        grid.add(lblCalificaciones, 0, 4);
+        grid.add(tablaCalificaciones, 1, 4);
+        grid.add(btnCerrar, 1, 5);
 
         listaAlumnos.setPrefHeight(150);
         listaAlumnos.setPrefWidth(300);
