@@ -30,7 +30,7 @@ public class MenuAlumno {
     public void mostrarMenuAlumno() {
         ImageView imagenLogoITC = new ImageView(new Image(getClass().getResourceAsStream("/itc/View/Imagenes/BannerTecno.jpg")));
         imagenLogoITC.setPreserveRatio(true);
-        imagenLogoITC.setFitWidth(300);
+        imagenLogoITC.setFitWidth(1000);
 
         Text txtITC = new Text("Instituto Tecnológico de Celaya");
         Text txtBienvenida = new Text("Bienvenid@ alumno(a) " + alumno.getNombre() + " " + alumno.getPrimerApellido() + " " + alumno.getSegundoApellido());
@@ -125,7 +125,7 @@ public class MenuAlumno {
         }
 
         VBox datos = new VBox(10, lblNombre, lblNoControl, lblCarrera);
-        VBox credencial = new VBox(20, imgAlumno, lblTitulo, datos);
+        VBox credencial = new VBox(20, lblTitulo, imgAlumno, datos);
         credencial.setStyle(estiloCredencial);
         credencial.setPadding(new Insets(20));
         credencial.setAlignment(Pos.CENTER);

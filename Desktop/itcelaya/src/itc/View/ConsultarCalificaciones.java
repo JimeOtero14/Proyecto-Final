@@ -26,6 +26,7 @@ public class ConsultarCalificaciones {
 
     public TableView<CalificacionDetalle> tablaCalificaciones;
     public Button btnCerrar;
+    public Text txtResumen;
 
     public ConsultarCalificaciones(Alumno alumno) {
         this.alumno = alumno;
@@ -57,20 +58,26 @@ public class ConsultarCalificaciones {
         tablaCalificaciones = new TableView<>();
 
         TableColumn<CalificacionDetalle, String> colMateria = new TableColumn<>("Materia");
-        TableColumn<CalificacionDetalle, String> colMaestro = new TableColumn<>("Clave Maestro");
+        TableColumn<CalificacionDetalle, String> colNombreMaestro = new TableColumn<>("Nombre del Maestro");
         TableColumn<CalificacionDetalle, Integer> colGrupo = new TableColumn<>("Grupo");
         TableColumn<CalificacionDetalle, Integer> colParcial = new TableColumn<>("Parcial");
         TableColumn<CalificacionDetalle, Integer> colCalificacion = new TableColumn<>("Calificación");
+        TableColumn<CalificacionDetalle, String> colOportunidad = new TableColumn<>("Oportunidad");
 
         colMateria.setCellValueFactory(new PropertyValueFactory<>("nombreMateria"));
-        colMaestro.setCellValueFactory(new PropertyValueFactory<>("cveMaestro"));
+        colNombreMaestro.setCellValueFactory(new PropertyValueFactory<>("nombreProfesor"));
         colGrupo.setCellValueFactory(new PropertyValueFactory<>("idGrupo"));
         colParcial.setCellValueFactory(new PropertyValueFactory<>("parcial"));
         colCalificacion.setCellValueFactory(new PropertyValueFactory<>("calificacion"));
+        colOportunidad.setCellValueFactory(new PropertyValueFactory<>("oportunidad"));
 
-        tablaCalificaciones.getColumns().addAll(colMateria, colMaestro, colGrupo, colParcial, colCalificacion);
+        tablaCalificaciones.getColumns().addAll(colMateria, colNombreMaestro, colGrupo, colParcial, colCalificacion, colOportunidad);
         tablaCalificaciones.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaCalificaciones.setPrefHeight(400);
+
+        txtResumen = new Text("Resumen por materia");
+        txtResumen.setFont(Font.font("Montserrat", FontWeight.BOLD, 16));
+        txtResumen.setFill(Color.WHITE);
 
         btnCerrar = new Button("Cerrar");
         btnCerrar.setFont(Font.font("Arial", FontWeight.BOLD, 14));
@@ -78,10 +85,7 @@ public class ConsultarCalificaciones {
         btnCerrar.setPrefWidth(100);
         btnCerrar.setPrefHeight(35);
 
-        HBox botones = new HBox(20, btnCerrar);
-        botones.setAlignment(Pos.CENTER);
-
-        VBox panelMain = new VBox(20, hbLogo, hbITC, hbBienvenida, tablaCalificaciones, botones);
+        VBox panelMain = new VBox(20, hbLogo, hbITC, hbBienvenida, tablaCalificaciones, txtResumen, btnCerrar);
         panelMain.setAlignment(Pos.TOP_CENTER);
         panelMain.setPadding(new Insets(20));
         panelMain.setStyle("-fx-background-color: DARKGREEN;");

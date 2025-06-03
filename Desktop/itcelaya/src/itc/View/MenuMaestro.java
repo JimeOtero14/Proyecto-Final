@@ -135,7 +135,7 @@ public class MenuMaestro {
         }
 
         VBox datos = new VBox(10, lblNombre, lblClave, lblCarrera);
-        VBox credencial = new VBox(20, imgMaestro, lblTitulo, datos);
+        VBox credencial = new VBox(20, lblTitulo, imgMaestro, datos);
         credencial.setStyle(estiloCredencial);
         credencial.setPadding(new Insets(20));
         credencial.setAlignment(Pos.CENTER);

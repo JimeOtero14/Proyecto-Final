@@ -72,7 +72,24 @@ public class ConsultarAlumnosModel {
         }
         return alumnos;
     }
+    
+    public int obtenerIdMateriaPorNombre(String nombreMateria) {
+    String sql = "SELECT id_materia FROM materia WHERE nombre = ?";
+    try (Connection conn = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        ps.setString(1, nombreMateria);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("id_materia");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return -1;
+}
+
+    
     public List<Calificacion> obtenerCalificaciones(int noControl, int idGrupo, String cveMaestro, String nombreMateria) {
         List<Calificacion> calificaciones = new ArrayList<>();
 

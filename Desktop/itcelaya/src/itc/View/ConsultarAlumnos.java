@@ -27,6 +27,9 @@ public class ConsultarAlumnos {
     public ListView<String> listaAlumnos;
     public TableView<Calificacion> tablaCalificaciones;
     public Button btnCerrar;
+    public Text txtPromedio;
+    public Text txtEstado;
+    public Button btnKardex;
 
     public ConsultarAlumnos(Maestro maestro) {
         this.maestro = maestro;
@@ -56,15 +59,15 @@ public class ConsultarAlumnos {
 
         Label lblMateria = new Label("Materia:");
         Label lblGrupo = new Label("Grupo:");
+        Label lblOrdenamiento = new Label("Ordenar por:");
         Label lblAlumnos = new Label("Lista de Alumnos:");
         Label lblCalificaciones = new Label("Calificaciones:");
-        Label lblOrdenamiento = new Label("Ordenar por:");
 
         comboMateria = new ComboBox<>();
         comboGrupo = new ComboBox<>();
         comboOrdenamiento = new ComboBox<>();
         comboOrdenamiento.getItems().addAll("Por nombre", "Por número de control");
-        comboOrdenamiento.getSelectionModel().selectFirst(); // opción por defecto
+        comboOrdenamiento.getSelectionModel().selectFirst();
 
         listaAlumnos = new ListView<>();
 
@@ -78,11 +81,25 @@ public class ConsultarAlumnos {
         tablaCalificaciones.getColumns().addAll(colParcial, colCalificacion);
         tablaCalificaciones.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        txtPromedio = new Text("Promedio: --");
+        txtEstado = new Text("Estado: --");
+        txtPromedio.setFont(Font.font("Montserrat", FontWeight.BOLD, 16));
+        txtPromedio.setFill(Color.WHITE);
+        txtEstado.setFont(Font.font("Montserrat", FontWeight.BOLD, 16));
+        txtEstado.setFill(Color.WHITE);
+
         btnCerrar = new Button("Cerrar");
         btnCerrar.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         btnCerrar.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 10;");
         btnCerrar.setPrefWidth(100);
         btnCerrar.setPrefHeight(35);
+        
+        btnKardex = new Button("Registrar en Kardex");
+        btnKardex.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        btnKardex.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 10;");
+        btnKardex.setPrefWidth(200);
+        btnKardex.setPrefHeight(35);
+        btnKardex.setVisible(false);
 
         GridPane grid = new GridPane();
         grid.setVgap(15);
@@ -100,7 +117,11 @@ public class ConsultarAlumnos {
         grid.add(listaAlumnos, 1, 3);
         grid.add(lblCalificaciones, 0, 4);
         grid.add(tablaCalificaciones, 1, 4);
-        grid.add(btnCerrar, 1, 5);
+        grid.add(txtPromedio, 1, 5);
+        grid.add(txtEstado, 1, 6);
+        
+        grid.add(btnKardex, 1, 7);
+        grid.add(btnCerrar, 1, 8);
 
         listaAlumnos.setPrefHeight(150);
         listaAlumnos.setPrefWidth(300);
